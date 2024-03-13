@@ -1,0 +1,12 @@
+.button_color {
+    background-color: red;
+    color: white;
+  }
+  
+  .card_body_color {
+    background-color: blue;
+  }
+  
+  a {
+    text-decoration: none;
+  }

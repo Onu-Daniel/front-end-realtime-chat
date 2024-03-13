@@ -1,0 +1,120 @@
+<!-- Main container for the chat interface -->
+<div class="container mt-5">
+  <!-- Chat header section -->
+  <div class="chat_header">
+    <h3 class="text-center my-2">
+        Welcome to <span class="text-warning">{{ groupName }}</span> OpenReplay Group
+      </h3>
+    <button (click)="leaveChat()" class="btn btn-danger">
+        <!-- Button to initiate leaving the chat -->
+        Leave Chat
+      </button>
+      
+  </div>
+
+  <!-- Main messaging section -->
+  <div class="messaging">
+    <!-- Sidebar with connected users -->
+    <div class="inboxMessage">
+      <div class="usersInbox">
+        <div class="headerSearch">
+          <div class="recent_heading">
+            <h4>Connected Users</h4>
+          </div>
+          <div class="search">
+            <div class="stylish-input-group">
+              <input type="text" class="search-bar" placeholder="Search" />
+              <span class="input-group-addon">
+                <button type="button">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="inbox_chat">
+          <!-- Example connected user in the chat list -->
+          <ng-container *ngFor="let user of this.chatService.activeUsers$ | async">
+            <div class="active_user_list">
+                <div class="usersChat">
+                  <div class="inChatImage">
+                    <img
+                      src="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0="
+                      alt=""
+                    />
+                  </div>
+                  <div class="chat_ib mt-3">
+                    <h5>{{ user }} <span class="online"></span></h5>
+                  </div>
+                </div>
+              </div>
+        </ng-container>
+          
+        </div>
+      </div>
+
+      <!-- Main messaging area -->
+      <div class="messages">
+        <div class="messageHistory">
+            <ng-container *ngFor="let message of this.chatService.messages$ | async">
+                <!-- Container for displaying chat messages using ngFor -->
+              
+                <div
+                  [ngClass]="{
+                    incoming_msg: message.user != userDisplayName , 
+                    outgoing_msg: message.user === userDisplayName    
+                  }"
+                >
+                  <!-- Individual message container with dynamic classes -->
+              
+                  <!-- Display the user's profile image for incoming messages -->
+                  <div *ngIf="message.user != userDisplayName " class="incomingMessageImage">
+                    <img src="https://ptetutorials.com/images/user-profile.png" />
+                  </div>
+              
+                  <!-- Container for received messages -->
+                  <div *ngIf="message.user != userDisplayName " class="receivedMessage">
+                    <div class="received_withd_msg">
+                      <!-- Display the received message and timestamp -->
+                      <p>{{ message.message }}</p>
+                      <span class="time_date">{{ message.user }} | {{ message.messageTime | date: "medium" }}</span>
+                    </div>
+                  </div>
+              
+                  <!-- Container for sent messages -->
+                  <div *ngIf="message.user === userDisplayName " class="sentMessage">
+                    <!-- Display the sent message and timestamp -->
+                    <p>{{ message.message }}</p>
+                    <span class="time_date">{{ message.user }} | {{ message.messageTime | date: "medium" }}</span>
+                  </div>
+                </div>
+              
+              </ng-container>
+        </div>
+
+        <!-- Input area for typing messages -->
+        <div class="messageInput">
+          <div class="typeInputMessage">
+            <!-- Input field for typing a message -->
+            <input
+              (keydown.enter)="SendChatMessage()"
+              [(ngModel)]="inputMessage"
+              type="text"
+              class="typeMessage"
+              placeholder="Type a message"
+            />
+
+            <!-- Button to send the message -->
+            <button
+              (click)="SendChatMessage()"
+              class="sendMessageButton"
+              type="button"
+            >
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!-- Page Title -->
+            <h2 class="text-center text-dark mt-5">Welcome to OpenReplay Workers Chat</h2>
+            
+            <!-- Introduction Text -->
+            <div class="text-center mb-5 text-dark">Join the group to meet fellow workers and chat</div>
+            
+            <!-- Card containing the Join Form -->
+            <div class="card my-5">
+                <form [formGroup]="joinGroupForm" class="card-body card_body_color p-lg-5">
+                    <!-- Display Picture Section -->
+                    <div class="text-center">
+                        <img src="https://www.finsmes.com/wp-content/uploads/2022/06/openreplay.png" class="img-fluid display-picture img-thumbnail rounded-circle my-3" width="200ox" alt="profile">
+                    </div>
+
+                    <!-- Display Name Input -->
+                    <div class="mb-3">
+                        <input formControlName="user" type="text" class="form-control" id="displayname" aria-describedby="emailHelp" placeholder="Display Name">
+                    </div>
+                    
+                    <!-- Room Name Input -->
+                    <div class="mb-3">
+                        <input formControlName="chatGroup" type="text" class="form-control" id="roomname" placeholder="Group Name">
+                    </div>
+                    
+                    <!-- Join Button -->
+                    <div class="text-center">
+                        <button
+                          [disabled]="joinGroupForm.invalid"
+                          (click)="joinGroup()"
+                          type="submit"
+                          class="btn button_color px-5 mb-5 w-100"
+                        >
+                          Join
+                        </button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
